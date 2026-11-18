@@ -1,0 +1,31 @@
+Total Revenue = SUM(gold_sales_daily[total_revenue])
+
+Total Orders = SUM(gold_sales_daily[total_orders])
+
+Average Order Value = DIVIDE([Total Revenue], [Total Orders])
+
+Customers = DISTINCTCOUNT(gold_customer_summary[customer_unique_id])
+
+Repeat Customers = CALCULATE(
+    DISTINCTCOUNT(gold_customer_summary[customer_unique_id]),
+    gold_customer_summary[customer_segment] = "Repeat Customer"
+)
+
+Repeat Customer % = DIVIDE([Repeat Customers], [Customers])
+
+Units Sold = SUM(gold_product_performance[units_sold])
+
+Late Orders = CALCULATE(
+    SUM(gold_delivery_performance[orders]),
+    gold_delivery_performance[delivery_status] = "Late"
+)
+
+On-Time Orders = CALCULATE(
+    SUM(gold_delivery_performance[orders]),
+    gold_delivery_performance[delivery_status] = "On Time"
+)
+
+Late Delivery % = DIVIDE(
+    [Late Orders],
+    SUM(gold_delivery_performance[orders])
+)

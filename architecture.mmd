@@ -1,0 +1,14 @@
+flowchart TD
+    A[Olist Public Dataset - Orders] --> B[Raw CSV Files]
+    A2[Olist Public Dataset - Customers] --> B
+    A3[Olist Public Dataset - Products, Items, Payments, Reviews, Sellers] --> B
+    B --> C[Databricks Bronze - Raw Delta Tables]
+    C --> D[Databricks Silver - Cleaned and Typed Tables]
+    D --> E[Silver Order Fact]
+    E --> F[Gold Sales and Customer Aggregates]
+    E --> G[Gold Delivery and State Aggregates]
+    D --> H[Gold Product and Payment Aggregates]
+    F --> I[Gold CSV Export]
+    G --> I
+    H --> I
+    I --> J[Power BI Interactive Dashboard]
